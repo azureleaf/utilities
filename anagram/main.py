@@ -1,20 +1,35 @@
 
+# Container of the anagrams generated
+anagrams = []
 
-def show_anagrams(pool, stem=[]):
+
+def grow_stem(pool, stem=[]):
+
+    global anagrams
 
     if len(pool) == 0:
-        print("result", stem)
+        anagrams.append(stem)
     else:
         for i, char in enumerate(pool):
-            new_stem = stem
-            new_pool = pool
+            new_stem = stem.copy()
+            new_pool = pool.copy()
 
             new_stem.append(char)
             new_pool.pop(i)
 
-            print(i, "stem", new_stem, "pool", new_pool)
-
-            show_anagrams(new_pool, new_stem)
+            grow_stem(new_pool, new_stem)
 
 
-show_anagrams(["a", "b", "c"])
+def gen_anagrams(pool=[]):
+    global anagrams
+
+    # init the container
+    anagrams = []
+
+    grow_stem(pool)
+
+    for anagram in anagrams:
+        print(anagram)
+
+
+gen_anagrams(["a", "b", "c"])
