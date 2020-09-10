@@ -31,7 +31,7 @@ def grow_stem(pool, stem=[]):
 
 
 def get_anagrams(src_str):
-    '''Get list of anagrams for the list of chars given'''
+    '''Get iterator of anagrams for the list of chars given'''
 
     return itertools.permutations(src_str, len(src_str))
 
