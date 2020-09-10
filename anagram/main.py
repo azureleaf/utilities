@@ -1,17 +1,19 @@
 import romkan
+import itertools
 
-src_hiragana = "あした"
+src_hiragana = "あさって"
 
 # Container of the anagrams generated
 anagrams = []
 
 # Note that only the vowels "a", "u", "o" can connect to
-# these sequential consonants in MOFA's Hepburn Romaji
-seq_consonants = ["ky", "sh", "ch", "ny", "hy", "my", "ry", "gy", "by", "py"]
+# these double consonants in MOFA's Hepburn Romaji
+double_consonants = ["ky", "sh", "ch", "ny",
+                     "hy", "my", "ry", "gy", "by", "py"]
 
 
 def grow_stem(pool, stem=[]):
-    '''Get a single char from the pool, append it to the stem'''
+    '''(Unused function) Get a single char from the pool, append it to the stem'''
 
     global anagrams
 
@@ -28,20 +30,13 @@ def grow_stem(pool, stem=[]):
             grow_stem(new_pool, new_stem)
 
 
-def get_anagrams(pool=[]):
+def get_anagrams(src_str):
     '''Get list of anagrams for the list of chars given'''
 
-    global anagrams
-
-    # init the container
-    anagrams = []
-
-    grow_stem(pool)
-
-    return anagrams
+    return itertools.permutations(src_str, len(src_str))
 
 
-def decompose_hiragana(hiraganas):
+def decompose_hiraganas(hiraganas):
     '''Decompose the hiragana str into consonants & vowels'''
 
     alphabets = []
@@ -59,6 +54,14 @@ def decompose_hiragana(hiraganas):
     return {"consonants": alphabets, "vowels": vowels}
 
 
-# gen_anagrams(["a", "b", "c"])
-alphabets = decompose_hiragana(src_hiragana)
-print(alphabets)
+def group_consonants(consonants):
+    collections = []
+
+    return collections
+
+
+anagrams = get_anagrams(["ch", "b", "y", "k"])
+for v in anagrams:
+    print(v)
+# alphabets = decompose_hiraganas(src_hiragana)
+# print(alphabets)
